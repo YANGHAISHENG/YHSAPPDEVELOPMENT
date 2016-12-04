@@ -1,0 +1,16 @@
+//
+//  main.m
+//  YHSAPPDEVELOPMENT
+//
+//  Created by YANGHAISHENG on 2016/12/4.
+//  Copyright © 2016年 YANGHAISHENG. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "YHSAppDelegate.h"
+
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([YHSAppDelegate class]));
+    }
+}

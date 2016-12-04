@@ -1,0 +1,34 @@
+//
+//  YHSAPPDEVELOPMENT-PrefixHeader.pch
+//  YHSAPPDEVELOPMENT
+//
+//  Created by YANGHAISHENG on 2016/12/4.
+//  Copyright © 2016年 YANGHAISHENG. All rights reserved.
+//
+
+#ifndef YHSAPPDEVELOPMENT_PrefixHeader_pch
+#define YHSAPPDEVELOPMENT_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+// 自定义系统头文件
+#import "YHSSystemCore.h"
+#import "YHSDateTimeUtil.h"
+#import "YHSSysConstants.h"
+
+#import "YHSStringMacro.h"
+#import "YHSAssetsMacro.h"
+#import "YHSSystemMacro.h"
+#import "YHSSysLogMacro.h"
+
+
+
+// 三方扩展头文件
+#import "Masonry.h"
+#import "YHSCategories.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+
+
+#endif /* YHSAPPDEVELOPMENT_PrefixHeader_pch */
