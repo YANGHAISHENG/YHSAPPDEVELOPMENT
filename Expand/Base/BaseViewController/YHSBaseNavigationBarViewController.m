@@ -624,14 +624,16 @@
     [attributedSelectTitle addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, title.length)];
     
     // 自定义按钮
-    CGFloat maxWidth = MIN(15+titleSize.width, NAVIGATION_BAR_BUTTON_MAX_WIDTH); // 按钮最大宽度
-    CGRect btnFrame = CGRectMake(0, 0, maxWidth, NAVIGATION_BAR_HEIGHT);
+    CGFloat btnWidth = MIN(15+titleSize.width, NAVIGATION_BAR_BUTTON_MAX_WIDTH); // 按钮最大宽度
+    CGFloat imageSizeWidth = 15.0f;
+    CGFloat imageSizeHeight = NAVIGATION_BAR_HEIGHT;
+    CGRect btnFrame = CGRectMake(0, 0, btnWidth, NAVIGATION_BAR_HEIGHT);
     UIButton *btn = [[UIButton alloc] initWithFrame:btnFrame];
     [btn setAttributedTitle:attributedNormalTitle forState:UIControlStateNormal];
     [btn setAttributedTitle:attributedSelectTitle forState:UIControlStateHighlighted];
-    [btn setImage:[[UIImage imageNamed:iconNameNormal] imageByScalingProportionallyToSize:CGSizeMake(15, 44)]
+    [btn setImage:[[UIImage imageNamed:iconNameNormal] imageByScalingProportionallyToSize:CGSizeMake(imageSizeWidth, imageSizeHeight)]
          forState:UIControlStateNormal];
-    [btn setImage:[[UIImage imageNamed:iconNameSelect] imageByScalingProportionallyToSize:CGSizeMake(15, 44)]
+    [btn setImage:[[UIImage imageNamed:iconNameSelect] imageByScalingProportionallyToSize:CGSizeMake(imageSizeWidth, imageSizeHeight)]
          forState:UIControlStateHighlighted];
     [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
 
@@ -857,14 +859,17 @@
         self.navigationBarLeftButtonItem = [self createNavigationBarLeftButtonItem];
         if (self.navigationBarLeftButtonItem) {
             // 调整控件位置
-            CGRect frame = CGRectMake(NAVIGATION_BAR_SCREEN_MARGIN,
-                                      self.navigationBarLeftButtonItem.frame.origin.y,
-                                      self.navigationBarLeftButtonItem.frame.size.width,
-                                      self.navigationBarLeftButtonItem.frame.size.height);
-            [self.navigationBarLeftButtonItem setFrame:frame];
             UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarLeftButtonItem];
-            [[self navigationItem] setLeftBarButtonItem:leftItem  animated:YES];
-            
+            if(([[NSObject OSVersion] floatValue] >= 7.0 ? YES : NO)) {
+                UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                            target:nil
+                                                                                            action:nil];
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN; // 这个值可以根据自己需要自己调整
+                [[self navigationItem] setLeftBarButtonItems:@[spacerItem, leftItem]];
+            } else {
+                [[self navigationItem] setLeftBarButtonItem:leftItem  animated:YES];
+            }
+
             // 验证是否为UIControl
             if ([self.navigationBarLeftButtonItem isKindOfClass:[UIControl class]]) {
                 [(UIControl *)self.navigationBarLeftButtonItem addTarget:self
@@ -886,13 +891,16 @@
         self.navigationBarRightButtonItem = [self createNavigationBarRightButtonItem];
         if (self.navigationBarRightButtonItem) {
             // 调整控件位置
-            CGRect frame = CGRectMake(SCREEN_WIDTH - NAVIGATION_BAR_SCREEN_MARGIN - self.navigationBarRightButtonItem.frame.size.width,
-                                      self.navigationBarRightButtonItem.frame.origin.y,
-                                      self.navigationBarRightButtonItem.frame.size.width,
-                                      self.navigationBarRightButtonItem.frame.size.height);
-            [self.navigationBarRightButtonItem setFrame:frame];
             UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarRightButtonItem];
-            [[self navigationItem] setRightBarButtonItem:rightItem  animated:YES];
+            if(([[NSObject OSVersion] floatValue] >= 7.0 ? YES : NO)) {
+                UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                            target:nil
+                                                                                            action:nil];
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN; // 这个值可以根据自己需要自己调整
+                [[self navigationItem] setRightBarButtonItems:@[spacerItem, rightItem]];
+            } else {
+                [[self navigationItem] setRightBarButtonItem:rightItem  animated:YES];
+            }
             
             // 验证是否为UIControl
             if ([self.navigationBarRightButtonItem isKindOfClass:[UIControl class]]) {

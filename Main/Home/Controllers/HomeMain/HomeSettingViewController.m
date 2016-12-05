@@ -17,6 +17,20 @@
 @implementation HomeSettingViewController
 
 
+#pragma mark - 导航栏右边按钮类型（默认不显示按钮）
+- (YHSNavBarButtonItemType)navigationBarRightButtonItemType
+{
+    return YHSNavBarButtonItemTypeCustom;
+}
+
+
+#pragma mark - 设置导航栏右边按钮控件标题
+- (void)setupNavigationBarRightButtonItemTitle
+{
+    [self setNavigationBarRightButtonItemTitle:@"设置"];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
