@@ -54,7 +54,7 @@
 
 #pragma mark - Navigation
 
-#pragma mark 状态栏（UIStatusBar）的前景色
+#pragma mark 设置状态栏的前景色
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     // 默认黑色
@@ -65,7 +65,7 @@
 }
 
 
-#pragma mark 状态栏（UIStatusBar）是否隐藏
+#pragma mark 设置状态栏是否隐藏
 - (BOOL)prefersStatusBarHidden
 {
     return NO;

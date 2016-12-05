@@ -14,12 +14,23 @@
 
 @implementation OrdersMainViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+#pragma mark 设置导航条是否隐藏
+- (BOOL)prefersNavigationBarHidden
+{
+    return YES;
 }
 
-- (void)didReceiveMemoryWarning {
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

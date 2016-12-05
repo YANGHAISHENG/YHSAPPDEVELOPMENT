@@ -16,11 +16,18 @@
 @implementation HomeSettingViewController
 
 
-//#pragma mark 设置导航条类型
-//- (YHSNavBarType)setupNavigationBarType
-//{
-//    return YHSNavBarTypeCustomNaviBarView;
-//}
+#pragma mark 设置导航条类型
+- (YHSNavBarType)setupNavigationBarType
+{
+    return YHSNavBarTypeCustomNaviBarView;
+}
+
+
+#pragma mark 设置导航条是否隐藏
+- (BOOL)prefersNavigationBarHidden
+{
+    return YES;
+}
 
 
 - (void)viewDidLoad {

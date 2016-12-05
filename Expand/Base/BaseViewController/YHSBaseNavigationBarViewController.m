@@ -692,9 +692,60 @@
         [self.navigationBarHairlineImageView setHidden:NO];
     }
     
+    // 隐藏导航条、不隐藏状态栏、导航条为空
+    if (!self.navigationBarCustomView && [self prefersNavigationBarHidden] && ![self prefersStatusBarHidden] ) {
+        
+        // 显示导航条+状态栏父容器大小
+        CGRect naviStatusBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, STATUS_NAVIGATION_BAR_HEIGHT);
+        
+        // 显示导航条容器大小
+        CGRect navigationBarFrame = CGRectMake(0, STATUS_BAR_HEIGHT, SCREEN_WIDTH, NAVIGATION_BAR_HEIGHT);
+        
+        // 显示状态栏
+        if ([self prefersNavigationBarHidden] && ![self prefersStatusBarHidden]) {
+            naviStatusBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, STATUS_BAR_HEIGHT);
+            navigationBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+        }
+        
+        // 导航栏状态栏容器
+        UIView *naviStatusBarCustomView = ({
+            UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
+            [view setBackgroundColor:[self setupNavigationBarColor]];
+            [self.view addSubview:view];
+            
+            view;
+        });
+        self.naviStatusBarCustomView = naviStatusBarCustomView;
+        
+        // 自定义导航条视图
+        UIView *navigationBarCustomView = ({
+            UIView *view = [[UIView alloc] initWithFrame:navigationBarFrame];
+            [view setBackgroundColor:[self setupNavigationBarColor]];
+            [naviStatusBarCustomView addSubview:view];
+            
+            view;
+        });
+        self.navigationBarCustomView = navigationBarCustomView;
+        
+        // 底部发丝线
+        UIView *navigationBarHairlineImageView = ({
+            UIView *view = [[UIView alloc] init];
+            [view setFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT-NAVIGATION_BAR_HAIR_LINE_HEIGHT, SCREEN_WIDTH, NAVIGATION_BAR_HAIR_LINE_HEIGHT)];
+            [view setBackgroundColor:NAVIGATION_BAR_HAIR_LINE_COLOR];
+            [navigationBarCustomView addSubview:view];
+            
+            view;
+        });
+        self.navigationBarHairlineImageView = navigationBarHairlineImageView;
+    }
+    
+    // 隐藏导航条
+    if ([self prefersNavigationBarHidden]) {
+        return;
+    }
+    
     // 设置导航栏按钮、标题区域内容
     [self setupNavigationBarCustomView];
-    
 }
 
 
@@ -725,13 +776,13 @@
             naviStatusBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, NAVIGATION_BAR_HEIGHT);
             navigationBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, NAVIGATION_BAR_HEIGHT);
         }
-        // 显示导航条+状态栏
+        // 显示状态栏+导航条
         else if (![self prefersNavigationBarHidden] && ![self prefersStatusBarHidden]) {
             naviStatusBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, STATUS_NAVIGATION_BAR_HEIGHT);
             navigationBarFrame = CGRectMake(0, STATUS_BAR_HEIGHT, SCREEN_WIDTH, NAVIGATION_BAR_HEIGHT);
         }
         
-        // 导航栏状态栏容器（64）
+        // 状态栏+导航条容器（64）
         UIView *naviStatusBarCustomView = ({
             UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
             [view setBackgroundColor:[self setupNavigationBarColor]];
@@ -741,31 +792,35 @@
         });
         self.naviStatusBarCustomView = naviStatusBarCustomView;
         
-        // 隐藏导航条
-        if ([self prefersNavigationBarHidden]) {
-            return;
+        // 导航条容器（44）
+        if (![self prefersNavigationBarHidden]) {
+            // 自定义导航条视图
+            UIView *navigationBarCustomView = ({
+                UIView *view = [[UIView alloc] initWithFrame:navigationBarFrame];
+                [view setBackgroundColor:[self setupNavigationBarColor]];
+                [naviStatusBarCustomView addSubview:view];
+                
+                view;
+            });
+            self.navigationBarCustomView = navigationBarCustomView;
+            
+            // 导航条底部发丝线
+            UIView *navigationBarHairlineImageView = ({
+                UIView *view = [[UIView alloc] init];
+                [view setFrame:CGRectMake(0, navigationBarFrame.size.height-NAVIGATION_BAR_HAIR_LINE_HEIGHT, navigationBarFrame.size.width, NAVIGATION_BAR_HAIR_LINE_HEIGHT)];
+                [view setBackgroundColor:NAVIGATION_BAR_HAIR_LINE_COLOR];
+                [navigationBarCustomView addSubview:view];
+                
+                view;
+            });
+            self.navigationBarHairlineImageView = navigationBarHairlineImageView;
         }
         
-        // 自定义导航条视图（44）
-        UIView *navigationBarCustomView = ({
-            UIView *view = [[UIView alloc] initWithFrame:navigationBarFrame];
-            [view setBackgroundColor:[self setupNavigationBarColor]];
-            [naviStatusBarCustomView addSubview:view];
-            
-            view;
-        });
-        self.navigationBarCustomView = navigationBarCustomView;
-        
-        // 底部发丝线
-        UIView *navigationBarHairlineImageView = ({
-            UIView *view = [[UIView alloc] init];
-            [view setFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT-NAVIGATION_BAR_HAIR_LINE_HEIGHT, SCREEN_WIDTH, NAVIGATION_BAR_HAIR_LINE_HEIGHT)];
-            [view setBackgroundColor:NAVIGATION_BAR_HAIR_LINE_COLOR];
-            [navigationBarCustomView addSubview:view];
-            
-            view;
-        });
-        self.navigationBarHairlineImageView = navigationBarHairlineImageView;
+    }
+    
+    // 隐藏导航条
+    if ([self prefersNavigationBarHidden]) {
+        return;
     }
     
     // 设置导航栏按钮、标题区域内容
@@ -940,6 +995,30 @@
 #pragma mark 设置导航栏背景色
 - (void)setupNavigationBarBackgroundColor
 {
+    // 导航栏类型
+    switch ([self setupNavigationBarType]) {
+            // 默认系统导航栏
+        case YHSNavBarTypeDefaultNaviBarView: {
+            // 设置是否有透明度(默认导航条是有透明度的)
+            [self.navigationController.navigationBar setTranslucent:NO];
+            // 设置导航条的颜色，这个改变的是导航条的背景色
+            [self.navigationController.navigationBar setBarTintColor:[self setupNavigationBarColor]];
+            break;
+        }
+            // 自定义导航栏（隐藏系统导航栏，自定义导航栏）
+        case YHSNavBarTypeCustomNaviBarView: {
+            // 设置自定义导航条背景色
+            [self.navigationBarCustomView setBackgroundColor:[self setupNavigationBarColor]];
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+    
+
+    /*
+    
     // 方法一：设置导航条背景（颜色）
     {
         // 设置自定义导航条背景色
@@ -951,14 +1030,15 @@
     }
     
     // 方法二：设置导航条背景（图片）
-    /*
-     if ([self setupNavigationBarBackgroundImage]) {
-     // 如果设置了navigationBar的setBackgroundImage:forBarMetrics:接口，那么上面的setBarTintColor接口就不能改变statusBar的背景色，statusBar的背景色就会变成纯黑色
-     [self.navigationController.navigationBar setBackgroundImage:[self setupNavigationBarBackgroundImage]
-     forBarPosition:UIBarPositionAny
-     barMetrics:UIBarMetricsDefault];
-     }
-     */
+    if ([self setupNavigationBarBackgroundImage]) {
+        // 如果设置了navigationBar的setBackgroundImage:forBarMetrics:接口，那么上面的setBarTintColor接口就不能改变statusBar的背景色，statusBar的背景色就会变成纯黑色
+        [self.navigationController.navigationBar setBackgroundImage:[self setupNavigationBarBackgroundImage]
+                                                     forBarPosition:UIBarPositionAny
+                                                         barMetrics:UIBarMetricsDefault];
+    }
+     
+    */
+
 }
 
 
