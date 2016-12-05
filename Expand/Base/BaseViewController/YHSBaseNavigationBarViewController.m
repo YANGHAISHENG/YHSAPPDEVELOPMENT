@@ -692,7 +692,7 @@
     [btn setAttributedTitle:attributedSelectTitle forState:UIControlStateHighlighted];
     [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
-    
+
     return btn;
 }
 
@@ -860,14 +860,18 @@
         if (self.navigationBarLeftButtonItem) {
             // 调整控件位置
             UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarLeftButtonItem];
-            if(([[NSObject OSVersion] floatValue] >= 7.0 ? YES : NO)) {
+            if([[NSObject OSVersion] floatValue] >= 7.0) {
+                /**
+                 * width为正数时，相当于UIButton向右移动width数值个像素
+                 * width为负数时，正好相反，相当于往左移动width数值个像素
+                 */
                 UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                             target:nil
                                                                                             action:nil];
-                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN; // 这个值可以根据自己需要自己调整
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*1.0;
                 [[self navigationItem] setLeftBarButtonItems:@[spacerItem, leftItem]];
             } else {
-                [[self navigationItem] setLeftBarButtonItem:leftItem  animated:YES];
+                [[self navigationItem] setLeftBarButtonItem:leftItem  animated:NO];
             }
 
             // 验证是否为UIControl
@@ -892,14 +896,18 @@
         if (self.navigationBarRightButtonItem) {
             // 调整控件位置
             UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarRightButtonItem];
-            if(([[NSObject OSVersion] floatValue] >= 7.0 ? YES : NO)) {
+            if([[NSObject OSVersion] floatValue] >= 7.0) {
+                /**
+                 * width为正数时，相当于UIButton向右移动width数值个像素
+                 * width为负数时，正好相反，相当于往左移动width数值个像素
+                 */
                 UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                             target:nil
                                                                                             action:nil];
-                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN; // 这个值可以根据自己需要自己调整
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*0.5;
                 [[self navigationItem] setRightBarButtonItems:@[spacerItem, rightItem]];
             } else {
-                [[self navigationItem] setRightBarButtonItem:rightItem  animated:YES];
+                [[self navigationItem] setRightBarButtonItem:rightItem  animated:NO];
             }
             
             // 验证是否为UIControl
@@ -918,7 +926,7 @@
     
     // 标题区域
     {
-        CGFloat maxWidth = MAX(CGRectGetWidth(self.navigationBarLeftButtonItem.frame) , CGRectGetWidth(self.navigationBarRightButtonItem.frame));
+        CGFloat maxWidth = MAX(MAX(CGRectGetWidth(self.navigationBarLeftButtonItem.frame) , CGRectGetWidth(self.navigationBarRightButtonItem.frame)), NAVIGATION_BAR_BUTTON_MAX_WIDTH);
         CGRect titleRect = CGRectMake(NAVIGATION_BAR_SCREEN_MARGIN+maxWidth, 0, SCREEN_WIDTH - 2*(NAVIGATION_BAR_SCREEN_MARGIN + maxWidth), NAVIGATION_BAR_HEIGHT);
         UIView *titleContainerView = [[UIView alloc] initWithFrame:titleRect];
         [self setNavigationBarTitleView:titleContainerView];
@@ -936,9 +944,10 @@
 - (void)setupNavigationBarViewCustom
 {
     // 隐藏系统默认的导航按钮
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
-    [[self navigationItem] setLeftBarButtonItem:item  animated:NO];
-    [[self navigationItem] setRightBarButtonItem:item  animated:NO];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+    [[self navigationItem] setLeftBarButtonItem:leftItem  animated:NO];
+    [[self navigationItem] setRightBarButtonItem:rightItem  animated:NO];
     
     
     // 左选项按钮

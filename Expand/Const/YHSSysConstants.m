@@ -48,7 +48,7 @@ CGFloat const NAVIGATION_BAR_SCREEN_MARGIN = 10.0;
 
 
 #pragma mark 导航条左右按钮最大宽度
-CGFloat const NAVIGATION_BAR_BUTTON_MAX_WIDTH = 100.0;
+CGFloat const NAVIGATION_BAR_BUTTON_MAX_WIDTH = 50.0;
 
 
 #pragma mark 导航条标题字数限制
