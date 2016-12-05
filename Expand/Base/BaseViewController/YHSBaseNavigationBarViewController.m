@@ -71,6 +71,20 @@
 
 
 #pragma mark -
+#pragma mark 设置导航条是否隐藏（默认:否）
+- (BOOL)prefersNavigationBarHidden
+{
+    return NO;
+}
+
+
+#pragma mark 设置导航条类型（默认:YHSNavBarTypeDefaultNaviBarView）
+- (YHSNavBarType)setupNavigationBarType
+{
+    return YHSNavBarTypeDefaultNaviBarView;
+}
+
+
 #pragma mark 自定义配置导航栏
 - (void)setupNavigationBar
 {
@@ -94,17 +108,10 @@
 }
 
 
-#pragma mark 设置导航条是否隐藏（默认:否）
-- (BOOL)prefersNavigationBarHidden
+#pragma mark 设置状态栏背景色
+- (UIColor *)setupStatusBarColor
 {
-    return NO;
-}
-
-
-#pragma mark 设置导航条类型（默认:YHSNavBarTypeDefaultNaviBarView）
-- (YHSNavBarType)setupNavigationBarType
-{
-    return YHSNavBarTypeDefaultNaviBarView;
+    return STATUS_BAR_BACKGROUND_COLOR_DEFAULT;
 }
 
 
@@ -120,6 +127,13 @@
 {
     return [UIImage imageWithColor:[self setupNavigationBarColor]
                            andSize:CGSizeMake(self.navigationController.navigationBar.frame.size.width, STATUS_NAVIGATION_BAR_HEIGHT)];
+}
+
+
+#pragma mark 设置导航条背景图片（是否强制使用图片设置导航条背景）
+- (BOOL)setupNavigationBarBackgroundImageForce
+{
+    return NO;
 }
 
 
@@ -710,7 +724,7 @@
         // 导航栏状态栏容器
         UIView *naviStatusBarCustomView = ({
             UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
-            [view setBackgroundColor:[self setupNavigationBarColor]];
+            [view setBackgroundColor:[self setupStatusBarColor]];
             [self.view addSubview:view];
             
             view;
@@ -785,7 +799,7 @@
         // 状态栏+导航条容器（64）
         UIView *naviStatusBarCustomView = ({
             UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
-            [view setBackgroundColor:[self setupNavigationBarColor]];
+            [view setBackgroundColor:[self setupStatusBarColor]];
             [self.view addSubview:view];
             
             view;
@@ -999,10 +1013,7 @@
     switch ([self setupNavigationBarType]) {
             // 默认系统导航栏
         case YHSNavBarTypeDefaultNaviBarView: {
-            // 设置是否有透明度(默认导航条是有透明度的)
-            [self.navigationController.navigationBar setTranslucent:NO];
-            // 设置导航条的颜色，这个改变的是导航条的背景色
-            [self.navigationController.navigationBar setBarTintColor:[self setupNavigationBarColor]];
+            [self setupNavigationBarBackgroundColorDefault];
             break;
         }
             // 自定义导航栏（隐藏系统导航栏，自定义导航栏）
@@ -1015,30 +1026,87 @@
             break;
         }
     }
-    
 
-    /*
-    
-    // 方法一：设置导航条背景（颜色）
-    {
-        // 设置自定义导航条背景色
-        [self.navigationBarCustomView setBackgroundColor:[self setupNavigationBarColor]];
-        // 设置是否有透明度(默认导航条是有透明度的)
-        [self.navigationController.navigationBar setTranslucent:NO];
-        // 设置导航条的颜色，这个改变的是导航条的背景色
-        [self.navigationController.navigationBar setBarTintColor:[self setupNavigationBarColor]];
+}
+
+
+#pragma mark 设置导航栏背景色（默认系统导航栏）
+- (void)setupNavigationBarBackgroundColorDefault
+{
+    // 是否强制使用图片设置导航条背景
+    if (![self setupNavigationBarBackgroundImageForce]) {
+        
+        // 方法一：设置导航条背景（颜色）
+        if ([self setupNavigationBarColor]) {
+            // 设置是否有透明度(默认导航条是有透明度的)
+            [self.navigationController.navigationBar setTranslucent:NO];
+            // 设置导航条的颜色，这个改变的是导航条的背景色
+            [self.navigationController.navigationBar setBarTintColor:[self setupNavigationBarColor]];
+        }
+        
+    } else {
+        
+        // 方法二：设置导航条背景（图片）
+        if ([self setupNavigationBarBackgroundImage]) {
+            // 如果设置了navigationBar的setBackgroundImage:forBarMetrics:接口，那么上面的setBarTintColor接口就不能改变statusBar的背景色，statusBar的背景色就会变成纯黑色
+            [self.navigationController.navigationBar setBackgroundImage:[self setupNavigationBarBackgroundImage]
+                                                         forBarPosition:UIBarPositionAny
+                                                             barMetrics:UIBarMetricsDefault];
+        }
+        
     }
     
-    // 方法二：设置导航条背景（图片）
-    if ([self setupNavigationBarBackgroundImage]) {
-        // 如果设置了navigationBar的setBackgroundImage:forBarMetrics:接口，那么上面的setBarTintColor接口就不能改变statusBar的背景色，statusBar的背景色就会变成纯黑色
-        [self.navigationController.navigationBar setBackgroundImage:[self setupNavigationBarBackgroundImage]
-                                                     forBarPosition:UIBarPositionAny
-                                                         barMetrics:UIBarMetricsDefault];
+    // 设置状态栏颜色（如果状态栏与导航条颜色不一样，则自定一个状态栏背景视图）
+    if (![[self setupNavigationBarColor] isEqual:[self setupStatusBarColor]]) {
+        
+        // 隐藏导航条、不隐藏状态栏、导航条为空
+        if (!self.navigationBarCustomView && ![self prefersStatusBarHidden] ) {
+            
+            // 显示导航条+状态栏父容器大小
+            CGRect naviStatusBarFrame = CGRectMake(0, -STATUS_BAR_HEIGHT, SCREEN_WIDTH, STATUS_BAR_HEIGHT);
+            
+            // 显示导航条容器大小
+            CGRect navigationBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+            
+            // 导航栏状态栏容器
+            UIView *naviStatusBarCustomView = ({
+                UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
+                [view setBackgroundColor:[self setupStatusBarColor]];
+                [self.navigationController.navigationBar addSubview:view];
+                
+                view;
+            });
+            self.naviStatusBarCustomView = naviStatusBarCustomView;
+            
+            // 自定义导航条视图
+            UIView *navigationBarCustomView = ({
+                UIView *view = [[UIView alloc] initWithFrame:navigationBarFrame];
+                [view setBackgroundColor:[self setupNavigationBarColor]];
+                [naviStatusBarCustomView addSubview:view];
+                
+                view;
+            });
+            self.navigationBarCustomView = navigationBarCustomView;
+            
+            // 底部发丝线
+            UIView *navigationBarHairlineImageView = ({
+                UIView *view = [[UIView alloc] init];
+                [view setFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT-NAVIGATION_BAR_HAIR_LINE_HEIGHT, SCREEN_WIDTH, NAVIGATION_BAR_HAIR_LINE_HEIGHT)];
+                [view setBackgroundColor:NAVIGATION_BAR_HAIR_LINE_COLOR];
+                [navigationBarCustomView addSubview:view];
+                
+                view;
+            });
+            self.navigationBarHairlineImageView = navigationBarHairlineImageView;
+            
+        } else {
+            
+            [self.naviStatusBarCustomView setBackgroundColor:[self setupStatusBarColor]];
+            
+        }
+        
     }
-     
-    */
-
+    
 }
 
 

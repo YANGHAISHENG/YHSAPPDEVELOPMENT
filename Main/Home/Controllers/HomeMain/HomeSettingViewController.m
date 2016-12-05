@@ -13,32 +13,23 @@
 
 @end
 
+
 @implementation HomeSettingViewController
 
 
-#pragma mark 设置导航条类型
-- (YHSNavBarType)setupNavigationBarType
+- (void)viewDidLoad
 {
-    return YHSNavBarTypeCustomNaviBarView;
-}
-
-
-#pragma mark 设置导航条是否隐藏
-- (BOOL)prefersNavigationBarHidden
-{
-    return YES;
-}
-
-
-- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
@@ -50,4 +41,10 @@
 }
 */
 
+
 @end
+
+
+
+
+

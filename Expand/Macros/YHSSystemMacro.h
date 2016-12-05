@@ -28,6 +28,10 @@
 #define NAVIGATION_BAR_HAIR_LINE_COLOR [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]
 
 
+// 状态栏配置
+#define STATUS_BAR_BACKGROUND_COLOR_DEFAULT [UIColor colorWithRed:0.12 green:0.46 blue:0.69 alpha:1.00]
+
+
 // 导航栏配置
 #define NAVIGATION_BAR_TITLE_FONT_DEFAULT [UIFont systemFontOfSize:18.0]
 #define NAVIGATION_BAR_TITLE_COLOR_DEFAULT  [UIColor colorWithRed:0.93 green:0.96 blue:0.98 alpha:1.00]

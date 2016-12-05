@@ -13,6 +13,7 @@
 
 @end
 
+
 @implementation HomeMainViewController
 
 
@@ -38,20 +39,6 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-
-#pragma mark 设置导航条背景色
-- (UIColor *)setupNavigationBarColor
-{
-    return [UIColor orangeColor];
-}
-
-
-#pragma mark 状态栏（UIStatusBar）的前景色
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    // 默认黑色
-    return UIStatusBarStyleDefault;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

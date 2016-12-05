@@ -23,21 +23,26 @@
 @property (nonatomic, strong) UIView *navigationBarRightButtonItem; // 自定义导航栏右边按钮
 @property (nonatomic, copy) NSString *navigationBarRightButtonItemTitle; // 自定义导航栏右边按钮标题
 
+#pragma mark 设置导航条是否隐藏
+- (BOOL)prefersNavigationBarHidden;
+
+#pragma mark 设置导航条类型
+- (YHSNavBarType)setupNavigationBarType;
 
 #pragma mark 自定义配置导航栏
 - (void)setupNavigationBar;
 
-#pragma mark 设置导航条是否隐藏（默认:否）
-- (BOOL)prefersNavigationBarHidden;
-
-#pragma mark 设置导航条类型（默认:YHSNavBarTypeDefaultNaviBarView）
-- (YHSNavBarType)setupNavigationBarType;
+#pragma mark 设置状态栏背景色
+- (UIColor *)setupStatusBarColor;
 
 #pragma mark 设置导航条背景色
 - (UIColor *)setupNavigationBarColor;
 
 #pragma mark 设置导航条背景图片
 - (UIImage *)setupNavigationBarBackgroundImage;
+
+#pragma mark 设置导航条背景图片（是否强制使用图片设置导航条背景）
+- (BOOL)setupNavigationBarBackgroundImageForce;
 
 #pragma mark 设置导航栏按钮、标题区域内容
 - (void)setupNavigationBarCustomView;

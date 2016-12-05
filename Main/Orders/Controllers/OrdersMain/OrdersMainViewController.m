@@ -15,13 +15,6 @@
 @implementation OrdersMainViewController
 
 
-#pragma mark 设置导航条是否隐藏
-- (BOOL)prefersNavigationBarHidden
-{
-    return YES;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
