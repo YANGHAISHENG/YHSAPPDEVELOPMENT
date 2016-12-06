@@ -52,10 +52,10 @@
 - (void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers
 {
     if (self.viewControllers.count > 0) {
-        viewControllers[self.viewControllers.count-1].hidesBottomBarWhenPushed = YES;
+        viewControllers[viewControllers.count-1].hidesBottomBarWhenPushed = YES;
     }
     
-    [viewControllers[self.viewControllers.count-1] setAutomaticallyAdjustsScrollViewInsets:NO];
+    [viewControllers[viewControllers.count-1] setAutomaticallyAdjustsScrollViewInsets:NO];
     
     [super setViewControllers:viewControllers];
 }
@@ -64,10 +64,10 @@
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated
 {
     if (self.viewControllers.count > 0) {
-        viewControllers[self.viewControllers.count-1].hidesBottomBarWhenPushed = YES;
+        viewControllers[viewControllers.count-1].hidesBottomBarWhenPushed = YES;
     }
     
-    [viewControllers[self.viewControllers.count-1] setAutomaticallyAdjustsScrollViewInsets:NO];
+    [viewControllers[viewControllers.count-1] setAutomaticallyAdjustsScrollViewInsets:NO];
     
     [super setViewControllers:viewControllers animated:animated];
 }
