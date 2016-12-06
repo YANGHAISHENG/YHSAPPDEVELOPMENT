@@ -11,7 +11,14 @@
 
 @implementation UINavigationController (PushViewController)
 
+
 - (void)pushViewController:(UIViewController *)viewController removeViewController:(UIViewController *)removeViewController
+{
+    [self pushViewController:viewController removeViewController:removeViewController animated:YES];
+}
+
+
+- (void)pushViewController:(UIViewController *)viewController removeViewController:(UIViewController *)removeViewController animated:(BOOL)animated
 {
     // 删除视图控制器
     NSMutableArray *filterViewControllers = [NSMutableArray array];
@@ -29,11 +36,17 @@
     }
     
     // 重置视图控制器
-    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:YES];
+    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:animated];
 }
 
 
 - (void)pushViewController:(UIViewController *)viewController removeViewControllerAtIndex:(NSInteger)index
+{
+    [self pushViewController:viewController removeViewControllerAtIndex:index animated:YES];
+}
+
+
+- (void)pushViewController:(UIViewController *)viewController removeViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated
 {
     // 删除视图控制器
     NSMutableArray<UIViewController *> *filterViewControllers = [NSMutableArray arrayWithArray:self.viewControllers];
@@ -47,11 +60,17 @@
     }
     
     // 重置视图控制器
-    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:YES];
+    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:animated];
 }
 
 
 - (void)pushViewController:(UIViewController *)viewController removeViewControllersAtIndexes:(NSIndexSet *)indexes
+{
+    [self pushViewController:viewController removeViewControllersAtIndexes:indexes animated:YES];
+}
+
+
+- (void)pushViewController:(UIViewController *)viewController removeViewControllersAtIndexes:(NSIndexSet *)indexes animated:(BOOL)animated
 {
     // 删除视图控制器
     NSMutableArray<UIViewController *> *filterViewControllers = [NSMutableArray arrayWithArray:self.viewControllers];
@@ -63,11 +82,17 @@
     }
     
     // 重置视图控制器
-    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:YES];
+    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:animated];
 }
 
 
 - (void)pushViewControllers:(NSArray<UIViewController *> *)viewControllers removeViewControllersAtIndexes:(NSIndexSet *)indexes
+{
+    [self pushViewControllers:viewControllers removeViewControllersAtIndexes:indexes animated:YES];
+}
+
+
+- (void)pushViewControllers:(NSArray<UIViewController *> *)viewControllers removeViewControllersAtIndexes:(NSIndexSet *)indexes animated:(BOOL)animated
 {
     // 删除视图控制器
     NSMutableArray<UIViewController *> *filterViewControllers = [NSMutableArray arrayWithArray:self.viewControllers];
@@ -79,8 +104,9 @@
     }
     
     // 重置视图控制器
-    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:YES];
+    [self setViewControllers:[NSArray arrayWithArray:filterViewControllers] animated:animated];
 }
+
 
 @end
 
