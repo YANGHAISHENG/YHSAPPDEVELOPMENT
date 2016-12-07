@@ -25,6 +25,9 @@ UIKIT_EXTERN CGFloat const TAB_BAR_HEIGHT_DEFAULT;
 #pragma mark 状态栏高度
 UIKIT_EXTERN CGFloat const STATUS_BAR_HEIGHT;
 
+#pragma mark 状态栏+导航条容器TAG值
+UIKIT_EXTERN CGFloat const STATUS_NAVIGATION_BAR_TAG ;
+
 #pragma mark 状态栏+导航条高度(系统默认高度为64)
 UIKIT_EXTERN CGFloat const STATUS_NAVIGATION_BAR_HEIGHT;
 

@@ -111,7 +111,7 @@
 #pragma mark 设置状态栏背景色
 - (UIColor *)setupStatusBarColor
 {
-    return STATUS_BAR_BACKGROUND_COLOR_DEFAULT;
+    return [self setupNavigationBarColor];
 }
 
 
@@ -138,7 +138,7 @@
 
 
 #pragma mark 设置导航栏按钮、标题区域内容
-- (void)setupNavigationBarCustomView
+- (void)setupNavigationBarView
 {
     // 导航栏类型
     switch ([self setupNavigationBarType]) {
@@ -709,7 +709,7 @@
     }
     
     // 隐藏导航条、不隐藏状态栏、导航条为空
-    if (!self.navigationBarCustomView && [self prefersNavigationBarHidden] && ![self prefersStatusBarHidden] ) {
+    if (!self.naviStatusBarCustomView && [self prefersNavigationBarHidden] && ![self prefersStatusBarHidden] ) {
         
         // 显示导航条+状态栏父容器大小
         CGRect naviStatusBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, STATUS_NAVIGATION_BAR_HEIGHT);
@@ -723,9 +723,10 @@
             navigationBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
         }
         
-        // 导航栏状态栏容器
+        // 导航栏+状态栏容器
         UIView *naviStatusBarCustomView = ({
             UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
+            [view setTag:STATUS_NAVIGATION_BAR_TAG];
             [view setBackgroundColor:[self setupStatusBarColor]];
             [self.view addSubview:view];
             
@@ -761,7 +762,7 @@
     }
     
     // 设置导航栏按钮、标题区域内容
-    [self setupNavigationBarCustomView];
+    [self setupNavigationBarView];
 }
 
 
@@ -840,7 +841,7 @@
     }
     
     // 设置导航栏按钮、标题区域内容
-    [self setupNavigationBarCustomView];
+    [self setupNavigationBarView];
 }
 
 
@@ -868,7 +869,7 @@
                 UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                             target:nil
                                                                                             action:nil];
-                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*1.0;
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*0.5;
                 [[self navigationItem] setLeftBarButtonItems:@[spacerItem, leftItem]];
             } else {
                 [[self navigationItem] setLeftBarButtonItem:leftItem  animated:NO];
@@ -926,7 +927,7 @@
     
     // 标题区域
     {
-        CGFloat maxWidth = MAX(MAX(CGRectGetWidth(self.navigationBarLeftButtonItem.frame) , CGRectGetWidth(self.navigationBarRightButtonItem.frame)), NAVIGATION_BAR_BUTTON_MAX_WIDTH);
+        CGFloat maxWidth = MAX(CGRectGetWidth(self.navigationBarLeftButtonItem.frame) , CGRectGetWidth(self.navigationBarRightButtonItem.frame)) + NAVIGATION_BAR_SCREEN_MARGIN;
         CGRect titleRect = CGRectMake(NAVIGATION_BAR_SCREEN_MARGIN+maxWidth, 0, SCREEN_WIDTH - 2*(NAVIGATION_BAR_SCREEN_MARGIN + maxWidth), NAVIGATION_BAR_HEIGHT);
         UIView *titleContainerView = [[UIView alloc] initWithFrame:titleRect];
         [self setNavigationBarTitleView:titleContainerView];
@@ -1077,7 +1078,7 @@
     if (![[self setupNavigationBarColor] isEqual:[self setupStatusBarColor]]) {
         
         // 隐藏导航条、不隐藏状态栏、导航条为空
-        if (!self.navigationBarCustomView && ![self prefersStatusBarHidden] ) {
+        if (!self.naviStatusBarCustomView && ![self prefersStatusBarHidden] ) {
             
             // 显示导航条+状态栏父容器大小
             CGRect naviStatusBarFrame = CGRectMake(0, -STATUS_BAR_HEIGHT, SCREEN_WIDTH, STATUS_BAR_HEIGHT);
@@ -1085,9 +1086,10 @@
             // 显示导航条容器大小
             CGRect navigationBarFrame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
             
-            // 导航栏状态栏容器
+            // 导航栏+状态栏容器
             UIView *naviStatusBarCustomView = ({
                 UIView *view = [[UIView alloc] initWithFrame:naviStatusBarFrame];
+                [view setTag:STATUS_NAVIGATION_BAR_TAG];
                 [view setBackgroundColor:[self setupStatusBarColor]];
                 [self.navigationController.navigationBar addSubview:view];
                 
@@ -1121,6 +1123,18 @@
             [self.naviStatusBarCustomView setBackgroundColor:[self setupStatusBarColor]];
             
         }
+        
+    } else {
+        
+        // 导航栏+状态栏容器（因为导航条是高度集成的，此容器可能在父类的导航条中进行了设置）
+        [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (view.tag == STATUS_NAVIGATION_BAR_TAG) {
+                [view setBackgroundColor:[self setupStatusBarColor]];
+                *stop = YES;
+            }
+            
+        }];
         
     }
     

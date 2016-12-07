@@ -45,7 +45,7 @@
 - (BOOL)setupNavigationBarBackgroundImageForce;
 
 #pragma mark 设置导航栏按钮、标题区域内容
-- (void)setupNavigationBarCustomView;
+- (void)setupNavigationBarView;
 
 #pragma mark 设置导航条标题字体
 - (UIFont *)setupNavigationBarTitleFont;
@@ -112,6 +112,33 @@
 
 #pragma mark 响应导航栏右侧按钮事件
 - (void)pressNavigationBarRightButtonItem:(id)sender;
+
+#pragma mark 创建导航栏按钮控件YHSNavBarButtonItemTypeDefault
+- (UIView *)createNavigationBarButtonItemTypeDefaultTitle:(NSString *)title
+                                         titleNormalColor:(UIColor *)normalColor
+                                         titleSelectColor:(UIColor *)selectColor
+                                                titleFont:(UIFont *)font
+                                           iconNameNormal:(NSString *)iconNameNormal
+                                           iconNameSelect:(NSString *)iconNameSelect
+                                                   action:(SEL)action;
+
+#pragma mark 创建导航栏按钮控件YHSNavBarButtonItemTypeSearch
+- (UIView *)createNavigationBarButtonItemTypeSearchTitle:(NSString *)title
+                                        titleNormalColor:(UIColor *)normalColor
+                                        titleSelectColor:(UIColor *)selectColor
+                                               titleFont:(UIFont *)font
+                                          iconNameNormal:(NSString *)iconNameNormal
+                                          iconNameSelect:(NSString *)iconNameSelect
+                                                  action:(SEL)action;
+
+#pragma mark 创建导航栏按钮控件YHSNavBarButtonItemTypeCustom
+- (UIView *)createNavigationBarButtonItemTypeCustomTitle:(NSString *)title
+                                        titleNormalColor:(UIColor *)normalColor
+                                        titleSelectColor:(UIColor *)selectColor
+                                               titleFont:(UIFont *)font
+                                          iconNameNormal:(NSString *)iconNameNormal
+                                          iconNameSelect:(NSString *)iconNameSelect
+                                                  action:(SEL)action;
 
 @end
 

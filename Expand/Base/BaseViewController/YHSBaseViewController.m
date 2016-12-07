@@ -54,6 +54,14 @@
 
 #pragma mark - Navigation
 
+
+#pragma mark 设置状态栏是否隐藏
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
+
 #pragma mark 设置状态栏的前景色
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -62,13 +70,6 @@
     
     // 白色
     return UIStatusBarStyleLightContent;
-}
-
-
-#pragma mark 设置状态栏是否隐藏
-- (BOOL)prefersStatusBarHidden
-{
-    return NO;
 }
 
 

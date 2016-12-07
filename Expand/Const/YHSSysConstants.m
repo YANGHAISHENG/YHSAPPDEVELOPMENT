@@ -31,6 +31,10 @@ CGFloat const TAB_BAR_HEIGHT_DEFAULT = 49.0;
 CGFloat const STATUS_BAR_HEIGHT = 20.0;
 
 
+#pragma mark 状态栏+导航条容器TAG值
+CGFloat const STATUS_NAVIGATION_BAR_TAG = 888888.0;
+
+
 #pragma mark 状态栏+导航条高度(系统默认高度为64)
 CGFloat const STATUS_NAVIGATION_BAR_HEIGHT = 64.0;
 
