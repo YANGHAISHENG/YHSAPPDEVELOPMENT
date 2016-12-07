@@ -12,9 +12,9 @@
 
 // 控制台打印 - Xcode8
 #ifdef DEBUG
-#define YHSLog(format, ...) printf("[%s] [LINE] %s [第%d行] %s \n", [[YHSDateTimeUtil getCurrentTimeStamp] UTF8String], __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
-#define YHSINFOLog(format, ...) printf("[%s] [INFO] %s [第%d行] %s \n", [[YHSDateTimeUtil getCurrentTimeStamp] UTF8String], __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
-#define YHSDEBUGLog(format, ...) printf("[%s] [DEBUG] %s [第%d行] %s \n", [[YHSDateTimeUtil getCurrentTimeStamp] UTF8String], __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+#define YHSLog(format, ...) printf("[%s] [LINE] %s [第%d行] %s \n", [[YHSDateTimeUtil getCurrentTimeStamp] UTF8String], __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
+#define YHSINFOLog(format, ...) printf("[%s] [INFO] %s [第%d行] %s \n", [[YHSDateTimeUtil getCurrentTimeStamp] UTF8String], __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
+#define YHSDEBUGLog(format, ...) printf("[%s] [DEBUG] %s [第%d行] %s \n", [[YHSDateTimeUtil getCurrentTimeStamp] UTF8String], __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 #else
 #define YHSLog(__FORMAT__, ...)
 #define YHSINFOLog(__FORMAT__, ...)

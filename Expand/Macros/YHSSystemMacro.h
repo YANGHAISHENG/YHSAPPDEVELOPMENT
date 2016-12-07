@@ -15,13 +15,21 @@
 #define WEAKSELF(weakSelf)  __weak __typeof(&*self)weakSelf = self
 
 
-// 屏幕高宽
+// 屏幕高宽 (注意：由于不同iOS系统下，设备横竖屏时屏幕的高度和宽度有的是变化的有的是不变的)
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREEN_SIZE CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
-// RGBA
-#define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.f green:g/255.f blue:b/255.f alpha:a]
+// 屏幕宽高（正常竖屏的屏幕宽高，宽永远小于高度）
+#define SCREEN_WIDTH_VERTICAL (SCREEN_WIDTH < SCREEN_HEIGHT ? SCREEN_WIDTH : SCREEN_HEIGHT)
+#define SCREEN_HEIGHT_VERTICAL (SCREEN_WIDTH > SCREEN_HEIGHT ? SCREEN_WIDTH : SCREEN_HEIGHT)
+#define SCREEN_SIZE_VERTICA CGSizeMake(SCREEN_WIDTH_VERTICAL, SCREEN_HEIGHT_VERTICAL)
+
+
+// 颜色（RGBA）
+#define RGBA(r, g, b, a) [UIColor colorWithRed:(r/255.f) green:(g/255.f) blue:(b/255.f) alpha:a]
+#define RandomColor  RGBA(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256), 1.0)
 
 
 // 导航栏底部横线颜色
