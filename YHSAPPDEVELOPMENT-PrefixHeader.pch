@@ -18,6 +18,7 @@
 #import "YHSDateTimeUtil.h"
 #import "YHSSysConstants.h"
 
+
 #import "YHSStringMacro.h"
 #import "YHSAssetsMacro.h"
 #import "YHSSystemMacro.h"
@@ -27,8 +28,12 @@
 
 // 三方扩展头文件
 #import "Masonry.h"
+#import "YHSSearch.h"
 #import "YHSCategories.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
 
 
 #endif /* YHSAPPDEVELOPMENT_PrefixHeader_pch */
+
+
+

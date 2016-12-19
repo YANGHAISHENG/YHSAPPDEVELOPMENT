@@ -1,49 +1,30 @@
-
 //
-//  HomeSettingViewController.m
+//  HomeSearchResultViewController.m
 //  YHSAPPDEVELOPMENT
 //
-//  Created by YANGHAISHENG on 2016/12/4.
+//  Created by YANGHAISHENG on 2016/12/19.
 //  Copyright © 2016年 YANGHAISHENG. All rights reserved.
 //
 
-#import "HomeSettingViewController.h"
+#import "HomeSearchResultViewController.h"
 
-@interface HomeSettingViewController ()
+@interface HomeSearchResultViewController ()
 
 @end
 
+@implementation HomeSearchResultViewController
 
-@implementation HomeSettingViewController
-
-
-#pragma mark - 导航栏右边按钮类型（默认不显示按钮）
-- (YHSNavBarButtonItemType)navigationBarRightButtonItemType
-{
-    return YHSNavBarButtonItemTypeCustom;
-}
-
-
-#pragma mark - 设置导航栏右边按钮控件标题
-- (void)setupNavigationBarRightButtonItemTitle
-{
-    [self setNavigationBarRightButtonItemTitle:@"设置"];
-}
-
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.view setBackgroundColor:[UIColor lightGrayColor]];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 /*
 #pragma mark - Navigation
@@ -55,10 +36,4 @@
 }
 */
 
-
 @end
-
-
-
-
-

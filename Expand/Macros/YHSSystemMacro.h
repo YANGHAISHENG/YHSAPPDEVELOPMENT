@@ -58,13 +58,13 @@
 
 
 #pragma mark 状态栏配置
-#define STATUS_BAR_BACKGROUND_COLOR_DEFAULT [UIColor colorWithRed:0.12 green:0.46 blue:0.69 alpha:1.00]
+#define STATUS_BAR_BACKGROUND_COLOR_DEFAULT [UIColor colorWithRed:0.12 green:0.46 blue:0.69 alpha:0.6]
 
 
 #pragma mark 导航栏配置
 #define NAVIGATION_BAR_TITLE_FONT_DEFAULT [UIFont systemFontOfSize:18.0]
 #define NAVIGATION_BAR_TITLE_COLOR_DEFAULT  [UIColor colorWithRed:0.93 green:0.96 blue:0.98 alpha:1.00]
-#define NAVIGATION_BAR_BACKGROUND_COLOR_DEFAULT [UIColor colorWithRed:0.12 green:0.46 blue:0.69 alpha:1.00]
+#define NAVIGATION_BAR_BACKGROUND_COLOR_DEFAULT [UIColor colorWithRed:0.12 green:0.46 blue:0.69 alpha:0.60]
 #pragma mark 导航栏配置 - 按钮
 #define NAVIGATION_BAR_BUTTON_TITLE_FONT [UIFont systemFontOfSize:16.0f]
 #define NAVIGATION_BAR_BUTTON_TITLE_COLOR_NORMAL [UIColor colorWithRed:0.93 green:0.96 blue:0.98 alpha:1.00]

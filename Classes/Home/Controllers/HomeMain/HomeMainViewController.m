@@ -7,7 +7,7 @@
 //
 
 #import "HomeMainViewController.h"
-#import "HomeSettingViewController.h"
+#import "HomeSearchViewController.h"
 
 @interface HomeMainViewController ()
 
@@ -27,15 +27,15 @@
 #pragma mark - 设置导航栏右边按钮控件标题
 - (void)setupNavigationBarRightButtonItemTitle
 {
-    [self setNavigationBarRightButtonItemTitle:@"设置"];
+    [self setNavigationBarRightButtonItemTitle:@"搜索"];
 }
 
 
 #pragma mark - 响应导航栏右侧按钮事件
 - (void)pressNavigationBarRightButtonItem:(id)sender
 {
-    HomeSettingViewController *viewController = [[HomeSettingViewController alloc] init];
-    [viewController setTitle:@"设置页面"];
+    HomeSearchViewController *viewController = [[HomeSearchViewController alloc] init];
+    [viewController setTitle:@"搜索查询"];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -43,6 +43,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
