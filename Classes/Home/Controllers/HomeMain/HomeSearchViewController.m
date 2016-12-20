@@ -151,8 +151,6 @@
     
     // 5. 跳转到搜索控制器
     [self.navigationController pushViewController:searchViewController animated:YES];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-//    [self presentViewController:nav  animated:YES completion:nil];
 }
 
 
