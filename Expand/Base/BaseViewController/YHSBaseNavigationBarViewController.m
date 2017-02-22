@@ -869,7 +869,7 @@
                 UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                             target:nil
                                                                                             action:nil];
-                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*0.5;
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*1.0;
                 [[self navigationItem] setLeftBarButtonItems:@[spacerItem, leftItem]];
             } else {
                 [[self navigationItem] setLeftBarButtonItem:leftItem  animated:NO];
@@ -899,13 +899,13 @@
             UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarRightButtonItem];
             if([[NSObject OSVersion] floatValue] >= 7.0) {
                 /**
-                 * width为正数时，相当于UIButton向右移动width数值个像素
-                 * width为负数时，正好相反，相当于往左移动width数值个像素
+                 * width为正数时，相当于UIButton向左移动width数值个像素
+                 * width为负数时，正好相反，相当于往右移动width数值个像素
                  */
                 UIBarButtonItem *spacerItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                             target:nil
                                                                                             action:nil];
-                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*0.5;
+                spacerItem.width = -NAVIGATION_BAR_SCREEN_MARGIN*1.0;
                 [[self navigationItem] setRightBarButtonItems:@[spacerItem, rightItem]];
             } else {
                 [[self navigationItem] setRightBarButtonItem:rightItem  animated:NO];
